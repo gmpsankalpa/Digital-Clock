@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="script.js"></script> -->
+<body>
+    <div class="digital-clock">
+        <div class="week">
+            <div class="active">SUN</div>
+            <div>MON</div>
+            <div>TUE</div>
+            <div>WED</div>
+            <div>THU</div>
+            <div>FRI</div>
+            <div>SAT</div>
+        </div>
+        <div class="time">
+            <div class="hour">12</div>
+            <div class="dot">:</div>
+            <div class="min">05</div>
+        </div>
+    </div>
+
+    <script>
+        const $ = (selector) => {
+            return document.querySelector(selector);
+        };
+
+        const hour = $('.hour');
+        const dot = $('.dot');
+        const min = $('.min');
+        const week = $('.week');
+        let showDot = true;
+
+        function update() {
+            showDot = !showDot;
+            const now = new Date();
+
+            if (showDot) {
+                dot.classList.add('invisible');
+            } else {
+                dot.classList.remove('invisible');
+            }
+            hour.textContent = String(now.getHours()).padStart(2, '0');
+            min.textContent = String(now.getMinutes()).padStart(2, '0');
+
+            Array.from(week.children).forEach((ele) => {
+                ele.classList.remove('active');
+            });
+            week.children[now.getDay()].classList.add('active');
+        }
+
+        setInterval(update, 500);
+    </script>
+</body>
+</html>
